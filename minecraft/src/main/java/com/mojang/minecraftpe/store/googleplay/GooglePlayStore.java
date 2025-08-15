@@ -12,49 +12,55 @@ public class GooglePlayStore implements Store {
     public GooglePlayStore(MainActivity activity, String licenseKey, StoreListener listener) {
         mActivity = activity;
         mListener = listener;
+        // Skip any license check, just tell client store is ready
         mListener.onStoreInitialized(true);
     }
 
+    @Override
     public String getStoreId() {
         return "android.googleplay";
     }
 
+    @Override
     public boolean hasVerifiedLicense() {
-        return true;
+        return true; // Always licensed
     }
 
-    public void queryProducts(String[] productIds) {
-    }
-
-    public void acknowledgePurchase(String receipt, String productType) {
-    }
-
-    public void queryPurchases() {
-    }
-
-    public String getProductSkuPrefix() {
-        return "";
-    }
-
-    public String getRealmsSkuPrefix() {
-        return "";
-    }
-
+    @Override
     public boolean receivedLicenseResponse() {
-        return true;
+        return true; // Pretend license check finished
     }
 
-    public void destructor() {
-    }
+    @Override
+    public void acknowledgePurchase(String receipt, String productType) {}
+
+    @Override
+    public void destructor() {}
 
     @Override
     public ExtraLicenseResponseData getExtraLicenseData() {
         return new ExtraLicenseResponseData(0L, 0L, 0L);
     }
 
-    public void purchase(String productId, boolean isSubscription, String payload) {
+    @Override
+    public void purchase(String productId, boolean isSubscription, String payload) {}
+
+    @Override
+    public void purchaseGame() {}
+
+    @Override
+    public void queryProducts(String[] productIds) {}
+
+    @Override
+    public void queryPurchases() {}
+
+    @Override
+    public String getProductSkuPrefix() {
+        return "";
     }
 
-    public void purchaseGame() {
+    @Override
+    public String getRealmsSkuPrefix() {
+        return "";
     }
 }
